@@ -34,8 +34,9 @@ class StudentController extends Controller
             'class' => 'required|string|max:255',
             'section' => 'required|string|max:255',
             'admission_date' => 'required|date',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-
+    
         DB::transaction(function () use ($request) {
             $user = User::create([
                 'name' => $request->name,
@@ -44,16 +45,22 @@ class StudentController extends Controller
                 'role' => 'student',
                 'email_verified_at' => now(),
             ]);
-
+    
+            $profileImage = null;
+            if ($request->hasFile('profile_image')) {
+                $profileImage = $request->file('profile_image')->store('student-profiles', 'public');
+            }
+    
             StudentProfile::create([
                 'user_id' => $user->id,
                 'student_id' => $request->student_id,
                 'class' => $request->class,
                 'section' => $request->section,
                 'admission_date' => $request->admission_date,
+                'profile_image' => $profileImage
             ]);
         });
-
+    
         return redirect()->route('admin.students.index')
             ->with('success', 'Student created successfully.');
     }

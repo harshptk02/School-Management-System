@@ -15,6 +15,7 @@ class StudentProfile extends Model
         'class',
         'section',
         'admission_date',
+        'profile_image'
     ];
 
     protected $casts = [

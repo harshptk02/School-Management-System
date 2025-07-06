@@ -14,6 +14,7 @@ class TeacherProfile extends Model
         'employee_id',
         'subject',
         'qualification',
+        'profile_image'
     ];
 
     public function user()

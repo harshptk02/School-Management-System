@@ -28,6 +28,7 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'employee_id' => 'required|string|unique:teacher_profiles',
@@ -44,11 +45,17 @@ class TeacherController extends Controller
                 'email_verified_at' => now(),
             ]);
 
+            $profileImage = null;
+            if ($request->hasFile('profile_image')) {
+                $profileImage = $request->file('profile_image')->store('teacher-profiles', 'public');
+            }
+
             TeacherProfile::create([
                 'user_id' => $user->id,
                 'employee_id' => $request->employee_id,
                 'subject' => $request->subject,
                 'qualification' => $request->qualification,
+                'profile_image' => $profileImage
             ]);
         });
 
