@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 
 class TimeTableController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $timeTables = TimeTable::with('teacher')->paginate(15);
+        $query = TimeTable::with('teacher');
+        
+        if ($request->has('class')) {
+            $query->where('class', $request->class);
+        }
+        
+        $timeTables = $query->paginate(15);
         return view('admin.timetables.index', compact('timeTables'));
     }
 

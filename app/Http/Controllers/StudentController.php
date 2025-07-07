@@ -10,12 +10,18 @@ use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = User::where('role', 'student')
-            ->with('studentProfile')
-            ->paginate(10);
-        
+        $query = User::where('role', 'student')
+            ->with('studentProfile');
+
+        if ($request->has('class')) {
+            $query->whereHas('studentProfile', function($q) use ($request) {
+                $q->where('class', $request->class);
+            });
+        }
+
+        $students = $query->paginate(15);
         return view('admin.students.index', compact('students'));
     }
 
