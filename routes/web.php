@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TimeTableController;
+use App\Http\Controllers\FeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -84,4 +85,17 @@ Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->grou
 // Student Routes
 Route::middleware(['auth', 'verified', 'role:student'])->prefix('student')->group(function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+});
+
+// Fee Management Routes
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/fees', [FeeController::class, 'index'])->name('fees.index');
+    Route::get('/fees/create', [FeeController::class, 'create'])->name('fees.create');
+    Route::post('/fees', [FeeController::class, 'store'])->name('fees.store');
+    Route::get('/fees/{id}/edit', [FeeController::class, 'edit'])->name('fees.edit');
+    Route::put('/fees/{id}', [FeeController::class, 'update'])->name('fees.update');
+    Route::get('/fees/student/{studentId}', [FeeController::class, 'show'])->name('fees.show');
+    Route::post('/fees/generate', [FeeController::class, 'generateMonthlyFees'])->name('fees.generate');
+    Route::patch('/fees/{id}/mark-paid', [FeeController::class, 'markAsPaid'])->name('fees.mark-paid');
+    Route::get('/fees/{fee}/receipt', [FeeController::class, 'downloadReceipt'])->name('fees.receipt');
 });

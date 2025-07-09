@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Notification;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Illuminate\Http\Request;
+use App\Models\StudentFee;
 
 class AdminDashboardController extends Controller
 {
@@ -53,6 +54,8 @@ $notifications = Notification::where('expires_at', '>', now())
         ->orderBy('created_at', 'desc')
         ->get();
 
+    $totalFeeCollection = StudentFee::where('status', 'paid')->sum('amount');
+
         return view('admin.dashboard', compact(
             'totalUsers',
             'totalAdmins',
@@ -60,7 +63,8 @@ $notifications = Notification::where('expires_at', '>', now())
             'totalStudents',
             'usersChart',
             'roleChart',
-            'notifications'
+            'notifications',
+            'totalFeeCollection'
         ));
     }
 }

@@ -169,20 +169,20 @@
                             <div class="flex items-center justify-between mb-4">
                                 <div class="p-3 bg-green-100 rounded-full group-hover:bg-white/20 transition-colors duration-300">
                                     <svg class="w-8 h-8 text-green-600 group-hover:text-white icon-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 7v7m-4 4h8a2 2 0 002-2v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-xs text-gray-500 group-hover:text-white/80 font-medium uppercase tracking-wide">Active</div>
-                                    <div class="text-sm font-semibold text-green-600 group-hover:text-green-300">{{ ($totalAdmins ?? 5) - 1 }}/{{ $totalAdmins ?? 5 }}</div>
+                                    <div class="text-xs text-gray-500 group-hover:text-white/80 font-medium uppercase tracking-wide">Total</div>
+                                    <div class="text-sm font-semibold text-green-600 group-hover:text-green-300">&nbsp;</div>
                                 </div>
                             </div>
                             <div class="mb-2">
-                                <div class="text-3xl font-bold text-green-600 group-hover:text-white number-animation">{{ $totalAdmins ?? '5' }}</div>
-                                <div class="text-gray-600 group-hover:text-white/80 font-medium">Admins</div>
+                                <div class="text-3xl font-bold text-green-600 group-hover:text-white number-animation">{{ number_format($totalFeeCollection, 2) }}</div>
+                                <div class="text-gray-600 group-hover:text-white/80 font-medium">Total Fee Collection</div>
                             </div>
                             <div class="w-full bg-green-100 rounded-full h-2 group-hover:bg-white/20">
-                                <div class="bg-green-600 h-2 rounded-full group-hover:bg-white transition-all duration-300" style="width: 90%"></div>
+                                <div class="bg-green-600 h-2 rounded-full group-hover:bg-white transition-all duration-300" style="width: 100%"></div>
                             </div>
                         </div>
                         <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-teal-400/20 rounded-full -translate-y-8 translate-x-8 group-hover:scale-110 transition-transform duration-300"></div>
